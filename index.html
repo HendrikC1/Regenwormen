@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wormen Hulp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. TEGENSPELERS BEHEER -->
+    <div class="section">
+        <div class="flex-between" style="margin-bottom: 8px;">
+            <span style="font-weight: bold;">Tegenspelers:</span>
+            <div style="display: flex; gap: 8px; align-items: center;">
+                <button onclick="updatePlayers(-1)" class="btn">-</button>
+                <span id="playerCount" style="font-weight: bold;">1</span>
+                <button onclick="updatePlayers(1)" class="btn">+</button>
+            </div>
+        </div>
+        <div id="playersContainer" style="display: flex; flex-direction: column; gap: 8px;"></div>
+    </div>
+
+    <!-- 2. HARDCODED TAFELTEGELS -->
+    <div class="section">
+        <span style="display: block; margin-bottom: 8px; font-weight: bold; color: #4b5563;">Beschikbare tafeltegels:</span>
+        <div id="tableContainer" class="flex-wrap">
+            <span id="t21" class="tile">21 (1)</span> <span id="t22" class="tile">22 (1)</span>
+            <span id="t23" class="tile">23 (1)</span> <span id="t24" class="tile">24 (1)</span>
+            <span id="t25" class="tile">25 (2)</span> <span id="t26" class="tile">26 (2)</span>
+            <span id="t27" class="tile">27 (2)</span> <span id="t28" class="tile">28 (2)</span>
+            <span id="t29" class="tile">29 (3)</span> <span id="t30" class="tile">30 (3)</span>
+            <span id="t31" class="tile">31 (3)</span> <span id="t32" class="tile">32 (3)</span>
+            <span id="t33" class="tile">33 (4)</span> <span id="t34" class="tile">34 (4)</span>
+            <span id="t35" class="tile">35 (4)</span> <span id="t36" class="tile">36 (4)</span>
+        </div>
+    </div>
+
+    <!-- 3. ACTUELE BEURT STATUS -->
+    <div class="section status-box">
+        <div class="flex-between" style="font-weight: bold; margin-bottom: 4px;">
+            <span>IK (P1) Top: <span id="p1Top" style="text-decoration: underline;">-</span></span>
+            <span style="font-size: 12px; color: #4b5563;" id="p1History">[]</span>
+        </div>
+        <div class="flex-between" style="font-weight: bold; margin-top: 8px; padding-top: 8px; border-top: 1px solid #000000;">
+            <span>TOTAAL: <span id="currentScore">0</span></span>
+            <span id="hasWorm" class="text-red">GEEN WORM</span>
+        </div>
+        <div class="flex-wrap" id="savedDiceContainer" style="min-height: 20px; margin-top: 8px;"></div>
+    </div>
+
+    <!-- 4. WORP INPUT & ACTIE BALKEN -->
+    <div class="section">
+        <div class="flex-between" style="gap: 8px;">
+            <input type="text" id="csvInput" placeholder="NIEUWE WORP (BVD: W,5,5)" class="input-field" style="flex: 1;">
+            <button onclick="liveAnalyze()" class="btn" style="background-color: #e0f2fe; border-color: #0284c7; font-weight: bold;">ANALYSEER WORP</button>
+        </div>
+    </div>
+
+    <div id="adviceBlock" class="advice-box" style="display:none;"></div>
+    <div id="actionButtons" style="margin-bottom: 16px;"></div>
+
+    <div class="grid-2">
+        <button onclick="handleBust(0)" class="btn-red">IK Mislukt</button>
+        <button onclick="resetGame()" class="btn-black">Herstel Typefout</button>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+    <link rel="manifest" href="manifest.json">
+</body>
+</html>
